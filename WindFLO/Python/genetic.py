@@ -161,6 +161,7 @@ def genetic_algorithm(
         crossover_imports: int = 10,
         mutation_count: int = 10,
         log_every: int = 1,
+        seed: int | None = None
 ) -> tuple[np.ndarray, float]:
     """
     evolve a population of layouts over multiple generations, gradually improving them through selection, crossover and mutation
@@ -176,13 +177,13 @@ def genetic_algorithm(
     :return: returns a tuple of (best_layout, best_energy_cost)
     """
 
-    rng = np.random.default_rng()
+    rng = np.random.default_rng(seed)
     evaluator = KusiakEnergyEvaluator(scenario)
 
     #create the initial population
     population = []
     for _ in range(population_size):
-        individual = generate_initial_feasible_layout(scenario)
+        individual = generate_initial_feasible_layout(scenario, seed=seed)
         population.append(individual)
 
     population = np.array(population, dtype=float)
@@ -228,7 +229,7 @@ def genetic_algorithm(
             #check if something went wrong and the child is invalid, if so generate a fresh valid layout
             child_cost = float(evaluator.evaluate(child))
             if not np.isfinite(child_cost):
-                child = generate_initial_feasible_layout(scenario)
+                child = generate_initial_feasible_layout(scenario, seed=seed)
                 child_cost = float(evaluator.evaluate(child))
 
             new_population.append(child)

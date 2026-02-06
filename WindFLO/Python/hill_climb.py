@@ -4,6 +4,7 @@ import numpy as np
 from KusiakEnergyEvaluator import KusiakEnergyEvaluator
 from wind_scenario import WindScenario
 from generate_layout import generate_initial_feasible_layout, point_in_any_obstacle
+from plot_turbines import plot_turbines
 
 def _is_valid_turbine_move(
         layout: np.ndarray,
@@ -54,12 +55,14 @@ def hill_climb(
         step_size: float = 50.0,
         max_attempts_per_iteration: int = 20,
         log_every: int = 10,
+        seed: int | None = None
 ):
     """
     start from an initial feasible layout
     repeatedly apply small random perturbations
     accept the first improving feasible neighbour
 
+    :param seed:
     :param scenario:
     :param iterations:
     :param step_size:
@@ -68,12 +71,16 @@ def hill_climb(
     :return:
     """
 
-    random_generator = np.random.default_rng()
+    random_generator = np.random.default_rng(seed)
     evaluator = KusiakEnergyEvaluator(scenario)
 
     #generate the initial feasible layout solution
-    current_layout_positions = generate_initial_feasible_layout(scenario)
+    current_layout_positions = generate_initial_feasible_layout(scenario, seed=seed)
     current_energy_cost = float(evaluator.evaluate(current_layout_positions))
+
+    #plot the inital feasbile layout
+    plot_turbines(scenario, current_layout_positions, "windflo initial feasible layout plot turbine plot, using seed: " + str(seed))
+    print(f"initial feasible layout generated with seed {seed}")
 
     best_layout_positions = current_layout_positions.copy()
     best_energy_cost = current_energy_cost

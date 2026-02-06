@@ -47,7 +47,8 @@ def point_in_any_obstacle(
 
 def generate_initial_feasible_layout(
         scenario: WindScenario,
-        max_attempts: int = 1000000
+        max_attempts: int = 1000000,
+        seed: int | None = None
 )-> np.ndarray:
     """
     generate a valid starting layout by placing turbines one at a time.
@@ -56,13 +57,16 @@ def generate_initial_feasible_layout(
     the farms bounds are if it is not in any obstacles and are far away enough from already placed turbines
 
 
+    :param seed:
     :param scenario: scenario with all the farms info (size, obstacles, number of turbines, etc.)
     :param max_attempts: the max attempts to try place turbines, gives up after this many attempts (avoids inifite loops)
     :return: array of shape (nturbines, 2) with all turbine (x,y) positions
     """
 
-    #random number genenrator for turbine placement
-    random_generator = np.random.default_rng()
+    #random number generator for turbine placement
+    random_generator = np.random.default_rng(seed)
+    # print(seed)
+
 
     #get scenario parameters
     number_of_turbines = int(scenario.nturbines)
