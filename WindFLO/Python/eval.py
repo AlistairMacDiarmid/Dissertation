@@ -3,6 +3,7 @@ from KusiakEnergyEvaluator import KusiakEnergyEvaluator
 from hill_climb import hill_climb
 from genetic import genetic_algorithm
 from plot_turbines import plot_turbines
+from csv_generator import save_layout
 
 def run_scenario_ga(scenario_path: str, seed: int | None = None) -> None:
     scenario = WindScenario(scenario_path)
@@ -86,7 +87,13 @@ def run_scenario_hill_climb(scenario_path: str, seed: int | None = None) -> None
     print()
 
     plot_turbines(scenario, best_layout, "optimised layout")
-
+    save_layout(
+        layout=best_layout,
+        scenario=scenario,
+        energy_cost=best_cost,
+        seed=42,
+        filename=f"hc_seed_{seed}.csv",
+    )
 
 def main():
     print("\nHILL CLIMBER - MULTI-SCENARIO RUN\n")
