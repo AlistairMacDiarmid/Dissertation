@@ -194,7 +194,7 @@ def print_summary_statistics(summary_df: pd.DataFrame) -> None:
         ["mean", "std", "min", "max"]
     )
 
-    print("\nSummary statistics:")
+    print("\nsummary statistics:")
     print(stats.to_string())
 
 
@@ -224,7 +224,7 @@ def generate_all_plots(results_dir: str = "Results") -> None:
 
     print_summary_statistics(summary_df)
 
-    print("\nFigures saved to:")
+    print("\nfigures saved to:")
     print(figure_dir / "convergence_per_run_by_algorithm.png")
     print(figure_dir / "mean_convergence_by_algorithm.png")
     print(figure_dir / "final_cost_violin.png")

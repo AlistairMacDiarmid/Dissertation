@@ -1,8 +1,32 @@
+# AI USAGE DECLARATION
+# Portions of this file were developed with assistance from ChatGPT
+# (OpenAI) to support understanding and porting functionality from
+# the original WindFLO Java implementation into Python.
+#
+# The AI was used to:
+# - help interpret Java logic and structure
+# - suggest equivalent Python constructs
+#
+# All code has been critically evaluated, adapted, and integrated
+# by myself.
+
+
+# Computes the energy cost of a turbine layout.
+# This incorporates wake effects between turbines, meaning that
+# downstream turbines receive reduced wind speed.
+#
+# The evaluator aggregates energy production across all turbines
+# and wind directions, then applies a cost model to compute
+# the final objective value.
+
+
 from __future__ import annotations
 import math
 import numpy as np
 
 from wind_scenario import WindScenario
+
+
 
 class KusiakEnergyEvaluator:
     """

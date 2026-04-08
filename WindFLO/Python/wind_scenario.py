@@ -1,4 +1,16 @@
 #Port of Java/WindScenario.class
+# AI USAGE DECLARATION
+# Portions of this file were developed with assistance from ChatGPT
+# (OpenAI) to support understanding and porting functionality from
+# the original WindFLO Java implementation into Python.
+#
+# The AI was used to:
+# - help interpret Java logic and structure
+# - suggest equivalent Python constructs
+#
+# All code has been critically evaluated, adapted, and integrated
+# by myself.
+
 
 from __future__ import annotations
 import math
